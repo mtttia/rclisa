@@ -1,0 +1,33 @@
+{
+  "name": "rc_desktop",
+  "productName": "rc_desktop",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\"",
+    "rebuild": "npm rebuild --runtime=electron --target=16.18.0 --disturl=https://atom.io/download/atom-shell --abi=93"
+  },
+  "keywords": [],
+  "author": {
+    "name": "mtttia",
+    "email": "tia369852@gmail.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0",
+    "robotjs": "^0.6.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.5",
+    "@electron-forge/maker-deb": "^6.0.5",
+    "@electron-forge/maker-rpm": "^6.0.5",
+    "@electron-forge/maker-squirrel": "^6.0.5",
+    "@electron-forge/maker-zip": "^6.0.5",
+    "electron": "23.1.3"
+  }
+}
