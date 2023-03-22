@@ -5,8 +5,28 @@
 			"type": "npm",
 			"script": "start",
 			"problemMatcher": [],
-			"label": "npm: start",
+			"label": "electron",
 			"detail": "electron-forge start"
-		}
+		},
+		{
+			"type": "npm",
+			"script": "vite-client",
+			"problemMatcher": [],
+			"label": "vite-client",
+			"detail": "vite client"
+		},
+		{
+			"type": "npm",
+			"script": "vite-server",
+			"problemMatcher": [],
+			"label": "vite-server",
+			"detail": "vite server"
+		},
+		{
+        "label": "Run App",
+        "problemMatcher": [],
+        "dependsOn": ["vite-client", "vite-server", "electron"],
+				"detail": "Run vite and electron"
+      }
 	]
 }

@@ -1,6 +1,17 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
-const path = require('path');
-const robot = require('robotjs');
+import { app, BrowserWindow, ipcMain } from 'electron';
+import path from 'path';
+import robot from 'robotjs';
+import * as de from 'dotenv'
+de.config()
+import { RCLisa } from './RCLisa';
+import { createServer } from './server';
+
+const rclisa = new RCLisa();
+let mainWindow:BrowserWindow|null = null;
+
+const DEBUG = process.env.MODE == "DEBUG";
+
+createServer(rclisa);
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -9,18 +20,20 @@ if (require('electron-squirrel-startup')) {
 
 const createWindow = () => {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    icon: path.join(__dirname, '../assets', 'icon512.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: true,
-      contextIsolation: false,
     },
   });
 
   // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, 'index.html'));
+  if (DEBUG) mainWindow.loadURL('http://localhost:8123');
+  else
+    mainWindow.loadFile(path.join(__dirname, './../client/build', 'index.html'));
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
@@ -62,8 +75,28 @@ ipcMain.on('robotTest', (event, arg) => {
     
     for (var x = 0; x < width; x++)
     {
-      y = height * Math.sin((twoPI * x) / width) + height;
+      let y = height * Math.sin((twoPI * x) / width) + height;
       robot.moveMouse(x, y);
     }
 })
 
+function sendReply()
+{
+  let name = rclisa.getStepTitle();
+  let data = rclisa.getStepData();
+  let step = rclisa.step;
+
+  mainWindow!.webContents.send('rc_lisa-answer', JSON.stringify({ name, data, step }));
+}
+ipcMain.on('rc_lisa-ask', (event, arg) => {
+  //rc_lisa is the name of the protocol for remote mouse controller
+  sendReply();
+})
+
+
+ipcMain.on('chooseIp', (event, arg) =>
+{
+  console.log(arg);
+  rclisa.setIp(arg);
+  sendReply();
+})

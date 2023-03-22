@@ -1,16 +1,20 @@
 {
   "name": "rc_desktop",
-  "productName": "rc_desktop",
+  "productName": "lisaRC",
   "version": "1.0.0",
   "description": "My Electron application description",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish",
+    "start": "tsc && electron-forge start",
+    "package": "tsc && electron-forge package",
+    "make": "tsc && electron-forge make",
+    "publish": "tsc && electron-forge publish",
     "lint": "echo \"No linting configured\"",
-    "rebuild": "npm rebuild --runtime=electron --target=16.18.0 --disturl=https://atom.io/download/atom-shell --abi=93"
+    "rebuild": "npm rebuild --runtime=electron --target=16.18.0 --disturl=https://atom.io/download/atom-shell --abi=93",
+    "vite-client": "vite client",
+    "vite:build-client": "vite build client",
+    "vite-server": "vite build server --watch",
+    "vite:build-server": "vite build server"
   },
   "keywords": [],
   "author": {
@@ -19,8 +23,20 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@fluentui/react": "^8.106.5",
+    "@fluentui/react-components": "^9.18.0",
+    "@fluentui/react-icons": "^2.0.196",
+    "@vitejs/plugin-react": "^3.1.0",
+    "dotenv": "^16.0.3",
     "electron-squirrel-startup": "^1.0.0",
-    "robotjs": "^0.6.0"
+    "express": "^4.18.2",
+    "qrcode": "^1.5.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "robotjs": "^0.6.0",
+    "socket.io": "^4.6.1",
+    "socket.io-client": "^4.6.1",
+    "vite": "^4.1.4"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.5",
@@ -28,6 +44,8 @@
     "@electron-forge/maker-rpm": "^6.0.5",
     "@electron-forge/maker-squirrel": "^6.0.5",
     "@electron-forge/maker-zip": "^6.0.5",
-    "electron": "23.1.3"
+    "@types/express": "^4.17.17",
+    "electron": "23.1.3",
+    "typescript": "^4.9.5"
   }
 }

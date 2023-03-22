@@ -1,10 +1,15 @@
 module.exports = {
-  packagerConfig: {},
+  packagerConfig: {
+    icon: 'C:/progetti/remote_controller/rc_desktop/assets/favicon.ico'
+  },
   rebuildConfig: {},
   makers: [
     {
       name: '@electron-forge/maker-squirrel',
-      config: {},
+      config: {
+        iconUrl: 'file://C:/progetti/remote_controller/rc_desktop/assets/favicon.ico',
+        setupIcon: './assets/favicon.ico',
+      },
     },
     {
       name: '@electron-forge/maker-zip',
