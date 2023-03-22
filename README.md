@@ -2,4 +2,4 @@
 Remote controller for computer
 
 # Site
-rclisa.netlify.app
+https://rclisa.netlify.app
